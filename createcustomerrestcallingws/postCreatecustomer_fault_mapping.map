@@ -21,7 +21,7 @@
             <output path="$MessageAssembly2/JSON/spath('Data',2)/error"/>
         </move>
         <move>
-            <input path="$MessageAssembly/Fault/detail/any"/>
+            <input path="$MessageAssembly/Fault/detail/any" var="any"/>
             <output path="$MessageAssembly2/JSON/spath('Data',2)/details/Item"/>
         </move>
     </mappingDeclaration>
