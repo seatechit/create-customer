@@ -1,1 +1,1 @@
-# create customer project
+# create customer
