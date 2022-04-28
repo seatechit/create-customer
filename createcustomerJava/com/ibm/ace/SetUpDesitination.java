@@ -13,7 +13,7 @@ public class SetUpDesitination extends MbJavaComputeNode {
 
 	public void evaluate(MbMessageAssembly inAssembly) throws MbException {
 		MbOutputTerminal out = getOutputTerminal("out");
-		
+
 		MbMessage inMessage = inAssembly.getMessage();
 		MbMessageAssembly outAssembly = null;
 		try {
@@ -22,46 +22,41 @@ public class SetUpDesitination extends MbJavaComputeNode {
 			outAssembly = new MbMessageAssembly(inAssembly, outMessage);
 			// ----------------------------------------------------------
 			// Add user code below
-			
-			// Get the local environment the from the message arriving into the Java Compute Node
+			// Get the local environment the from the message arriving into the Java Compute
+			// Node
 			MbMessage env = inAssembly.getLocalEnvironment();
 			// Create a new object to hold the output local environment
 			MbMessage newEnv = new MbMessage(env);
-			
+
 			/**
 			 * Code below builds up the output local environment tree to has structure
-			 * expected by the REST Request node. It reads the REST_ENDPOINT operating system 
-			 * environment variable and sets it in the tree.
+			 * expected by the REST Request node. It reads the REST_ENDPOINT operating
+			 * system environment variable and sets it in the tree.
 			 * 
 			 * REST Request node then uses this URL to make the request.
 			 * 
 			 */
-			
+
 			// Get the backend url from fully qualified {policyproject}:policyname
 			// MbPolicy myPol = getPolicy("UserDefined","{userDefined}:backendurl");
-			
-			// Get the backend url from a policy deployed in default policies (via secret / configuration)
-			// Note that getPolicy method does not need to reference the policy project in this case
-			MbPolicy myPol = getPolicy("UserDefined","backendurl");
-			
-			newEnv.getRootElement()
-				.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE,"Destination",null)
-				.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE,"SOAP",null)
-				.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE,"Request",null)
-				.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE,"Transport",null)
-				.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE,"HTTP",null)
 
-				.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE,"WebServiceURL", myPol.getPropertyValueAsString("soapEndpoint"));
-			
+			// Get the backend url from a policy deployed in default policies (via secret /
+			// configuration)
+			// Note that getPolicy method does not need to reference the policy project in
+			// this case
+			MbPolicy myPol = getPolicy("UserDefined", "backendurl");
 
-			outAssembly = new MbMessageAssembly(
-					inAssembly,
-					newEnv,
-					inAssembly.getExceptionList(),
-					inAssembly.getMessage()
-			);
-			
-						
+			newEnv.getRootElement().createElementAsFirstChild(MbElement.TYPE_NAME_VALUE, "Destination", null)
+					.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE, "SOAP", null)
+					.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE, "Request", null)
+					.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE, "Transport", null)
+					.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE, "HTTP", null)
+
+					.createElementAsFirstChild(MbElement.TYPE_NAME_VALUE, "WebServiceURL",
+							myPol.getPropertyValueAsString("soapEndpoint"));
+
+			outAssembly = new MbMessageAssembly(inAssembly, newEnv, inAssembly.getExceptionList(),
+					inAssembly.getMessage());
 
 			// End of user code
 			// ----------------------------------------------------------
@@ -73,9 +68,9 @@ public class SetUpDesitination extends MbJavaComputeNode {
 			throw e;
 		} catch (Exception e) {
 			// Consider replacing Exception with type(s) thrown by user code
-			// Example handling ensures all exceptions are re-thrown to be handled in the flow
-			throw new MbUserException(this, "evaluate()", "", "", e.toString(),
-					null);
+			// Example handling ensures all exceptions are re-thrown to be handled in the
+			// flow
+			throw new MbUserException(this, "evaluate()", "", "", e.toString(), null);
 		}
 		// The following should only be changed
 		// if not propagating message to the 'out' terminal
@@ -84,9 +79,9 @@ public class SetUpDesitination extends MbJavaComputeNode {
 	}
 
 	/**
-	 * onPreSetupValidation() is called during the construction of the node
-	 * to allow the node configuration to be validated.  Updating the node
-	 * configuration or connecting to external resources should be avoided.
+	 * onPreSetupValidation() is called during the construction of the node to allow
+	 * the node configuration to be validated. Updating the node configuration or
+	 * connecting to external resources should be avoided.
 	 *
 	 * @throws MbException
 	 */
@@ -98,10 +93,9 @@ public class SetUpDesitination extends MbJavaComputeNode {
 	 * onSetup() is called during the start of the message flow allowing
 	 * configuration to be read/cached, and endpoints to be registered.
 	 *
-	 * Calling getPolicy() within this method to retrieve a policy links this
-	 * node to the policy. If the policy is subsequently redeployed the message
-	 * flow will be torn down and reinitialized to it's state prior to the policy
-	 * redeploy.
+	 * Calling getPolicy() within this method to retrieve a policy links this node
+	 * to the policy. If the policy is subsequently redeployed the message flow will
+	 * be torn down and reinitialized to it's state prior to the policy redeploy.
 	 *
 	 * @throws MbException
 	 */
@@ -110,8 +104,8 @@ public class SetUpDesitination extends MbJavaComputeNode {
 	}
 
 	/**
-	 * onStart() is called as the message flow is started. The thread pool for
-	 * the message flow is running when this method is invoked.
+	 * onStart() is called as the message flow is started. The thread pool for the
+	 * message flow is running when this method is invoked.
 	 *
 	 * @throws MbException
 	 */
@@ -120,7 +114,7 @@ public class SetUpDesitination extends MbJavaComputeNode {
 	}
 
 	/**
-	 * onStop() is called as the message flow is stopped. 
+	 * onStop() is called as the message flow is stopped.
 	 *
 	 * The onStop method is called twice as a message flow is stopped. Initially
 	 * with a 'wait' value of false and subsequently with a 'wait' value of true.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>createcustomerrestcallingws</name>
+	<name>createcustomer</name>
 	<comment></comment>
 	<projects>
-		<project>createcustomerrestcallingwsJava</project>
+		<project>createcustomerJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
